@@ -28,17 +28,18 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
         else:
             print('Error: ' + stderr.read())
     
-        stdin, stdout, stderr = ssh_client.exec_command('printf "from crontab import CronTab\nmy_cron = CronTab(user = True)\nfor job in my_cron:\n\tprint job\njob = my_cron.new(command = \'sudo python /home/testtest/Sprint1/process.py %s\')\njob.minute.every(5)\nmy_cron.write()" > /home/testtest/edit_chron.py'%(prefix))
+        stdin, stdout, stderr = ssh_client.exec_command('printf "from crontab import CronTab\nmy_cron = CronTab(user = True)\nfor job in my_cron:\n\tprint job\njob = my_cron.new(command = \'python /home/testtest/Sprint1/process.py %s\')\njob.minute.every(5)\nmy_cron.write()" > /home/testtest/edit_chron.py'%(prefix))
+        
         stdin, stdout, stderr = ssh_client.exec_command('python /home/testtest/edit_chron.py')
+        
+        print("Script excuted")
+        
         stdin, stdout, stderr = ssh_client.exec_command('exit')
         print("Exited server")
 
     client = connect()
 
     
-deploy('/Users/booranium/keys/sprint.pem', 'ec2-52-43-18-97.us-west-2.compute.amazonaws.com', 'groupa')
-
-
-
+deploy('sprint.pem', 'ec2-52-43-18-97.us-west-2.compute.amazonaws.com', 'groupc')
 
 
