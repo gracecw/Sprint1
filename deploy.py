@@ -28,18 +28,11 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
         else:
             print('Error: ' + stderr.read())
     
-        stdin, stdout, stderr = ssh_client.exec_command('printf "from crontab import CronTab\nmy_cron = CronTab(user = True)\nfor job in my_cron:\n\tprint job\njob = my_cron.new(command = \'python /home/testtest/Sprint1/process.py %s\')\njob.minute.every(5)\nmy_cron.write()" > /home/testtest/edit_chron.py'%(prefix))
-        
-        stdin, stdout, stderr = ssh_client.exec_command('python /home/testtest/edit_chron.py')
-        
+        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/5 * * * * python /home/testtest/Sprint1/process.py %s") | crontab -' %prefix)
         print("Script excuted")
         
-        stdin, stdout, stderr = ssh_client.exec_command('exit')
+        ssh_client.close()
         print("Exited server")
+        
 
     client = connect()
-
-    
-
-
-
