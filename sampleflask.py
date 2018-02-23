@@ -17,12 +17,17 @@ def foo():
 
 @app.route("/request/", methods=['GET','POST'])
 def print_request():
-    try:
-        mydata = request.json # will be 
-        return "Thanks. Your data is %s" % mydata
+    mydata = request.json
+    if mydata != None:
+        dataDir = '/srv/runme/groupa/'
+        f = open(dataDir+'Raw.txt', 'w')
+        f.write(mydata)
+        f.close()
         return 'JSON posted'
-    except:
-        return 'No Json Received'
+    
+    else:
+        return 'No Json Received.'
 
 
 app.run('0.0.0.0', port=8080, debug = True)
+
