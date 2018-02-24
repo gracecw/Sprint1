@@ -2,27 +2,23 @@ from flask import Flask
 from flask import request
 import sys
 
-app = Flask(__name__)
 
+import logging
+from logging.handlers import RotatingFileHandler
+
+
+app = Flask(__name__)
 
 @app.route("/hello/<name>")
 def f(name):
     return "Hello %s!\n" % name
 
 
-#@app.route("/")
-#def foo():
-#    return "This is test page."
+@app.route("/")
+def foo():
+    return "This is test page."
 
-@app.route("/", methods=['POST'])
-
-#def print_request():
-#    try:
-#        mydata = request.json # will be 
-#       return "Thanks. Your data is %s" % mydata
-#       return 'JSON posted'
-#   except:
-#       return 'No Json Received'
+@app.route("/request/", methods=['POST'])
 
 def get_raw_request():
     # retrieve the incoming request data as string
@@ -30,12 +26,14 @@ def get_raw_request():
     line = str(raw_request).replace("\n", " ")
 
     # 'a' mode to append to the existing Raw.txt
-    with open('/srv/runme/groupa/Raw.txt', 'a+') as f:
-        f.write(line+'\n')
-    f.close()
+    app.logger.info(line)
     return "Json posted"
 
 
 if __name__ == '__main__':
-    #i = sys.argv.index('server:app')
+    handler = TimedRotatingFileHandler('/srv/runme/groupb/log.txt', when='S', interval=30)
+    handler.setLevel(logging.INFO)
+    app.logger.setLevel(logging.INFO)
+    app.logger.addHandler(handler)
+    
     app.run('0.0.0.0', port=8080, debug = True)
