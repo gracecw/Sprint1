@@ -13,7 +13,7 @@ def rotate(prefix):
     t =datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
 
     #get the name for renaming
-    fname ='/srv/runme/%s/rawlog_%s.txt'%(prefix, t)
+    fname ='/srv/runme/%s/rawlog_%s.txt' %(prefix, t)
 
 
     #rename the file
@@ -25,4 +25,4 @@ def rotate(prefix):
     
     return "File rotated!"
 
-rotate()
+rotate(prefix)
