@@ -25,3 +25,4 @@ def rotate(prefix):
     
     return "File rotated!"
 
+rotate()
