@@ -1,14 +1,13 @@
 import os, json, sys
 
-
+timestamp = sys.argv[1]
 prefix = sys.argv[2]
 dataDir = '/srv/runme/' + prefix + '/'
-timestamp = sys.argv[1]
 
 proc_log_name = "procraw_%s.txt" % (timestamp)
 raw_log_name = "rawlog_%s.txt" % (timestamp)
-f = open(dataDir + proc_log_name, 'w')
 
+f = open(dataDir + proc_log_name, 'w')
 
 def dict_raise_on_duplicates(ordered_pairs):
     """Reject duplicate keys."""
@@ -22,6 +21,7 @@ def dict_raise_on_duplicates(ordered_pairs):
 
 
 json_strs = open(dataDir + raw_log_name).readlines()
+
 for json_str in json_strs:
     try:
         json_dict = json.loads(json_str, object_pairs_hook=dict_raise_on_duplicates)
