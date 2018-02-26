@@ -29,7 +29,7 @@ def get_raw_request():
     line = str(raw_request).replace("\n", " ")
     
     # 'a' mode to append to the existing Raw.txt
-    with open(dataDir + prefix + '/Raw.txt', 'a') as f:
+    with open(dataDir + prefix + '/Raw.txt', 'a+') as f:
         f.write(line + '\n')
     f.close()
     
