@@ -1,7 +1,7 @@
-import time
 import os
 from datetime import datetime
 import sys
+import subprocess
 
 prefix = sys.argv[1]
 
@@ -15,16 +15,19 @@ def rotate(prefix):
     # get current time
     global t
     t = datetime.now().strftime('%Y-%m-%d-%H-%M-%S')
-   # get the name for renaming
+    # get the name for renaming
     fname = '/srv/runme/%s/rawlog_%s.txt' % (prefix, t)
-    # rename the file
+    # rename the file, also create lock file to avoid simultaneous accessing
+    os.system('mkdir /srv/runme/%s/flock')
     os.rename(origin, fname)
+    os.system('rm -f /srv/runme/%s/flock')
 
     # if not created by flask, create new
     if not os.path.exists(origin):
         with open(origin, 'w'):
             pass
     return "File rotated!"
+
 
 if os.stat('/srv/runme/%s/Raw.txt' % (prefix)).st_size != 0:
     rotate(prefix)
