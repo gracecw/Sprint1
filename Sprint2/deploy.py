@@ -31,7 +31,7 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
         stdin, stdout, stderr = ssh_client.exec_command("screen -dm python /home/testtest/Sprint1/Sprint2/server.py %s -c 'sleep 30; exec sh'" %(prefix))
         print("Server launched, receiving request...")
                                                         
-        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/rawrotator_updated.py %s") | crontab -' %prefix)
+        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/rawrotator.py %s") | crontab -' %prefix)
         print("Script excuted")
         
         ssh_client.close()
