@@ -1,5 +1,8 @@
+import paramiko
+import time
+
 def deploy(path_to_ssh_key_private_key, server_address, prefix):   
-    import paramiko
+    
     
     ### SSH into EC2 and git clone repo 
     def connect():
@@ -27,11 +30,17 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
             print("Successfully cloned repo") 
         else:
             print('Error: ' + stderr.read())
-    
+        
         stdin, stdout, stderr = ssh_client.exec_command("screen -dm python /home/testtest/Sprint1/Sprint2/server.py %s -c 'sleep 30; exec sh'" %(prefix))
         print("Server launched, receiving request...")
-                                                        
+        
+        time.sleep(2)
+        
         stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/rawrotator.py %s") | crontab -' %prefix)
+        
+        time.sleep(5)
+        
+        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/procrotator.py %s") | crontab -' %prefix)
         print("Script excuted")
         
         ssh_client.close()
