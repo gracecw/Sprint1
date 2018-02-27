@@ -49,5 +49,5 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
 
     client = connect()
 
-#deploy('sprint.pem', 'ec2-34-218-35-29.us-west-2.compute.amazonaws.com', 'groupa')
+
                                                 
