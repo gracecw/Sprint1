@@ -28,10 +28,10 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
         else:
             print('Error: ' + stderr.read())
     
-        stdin, stdout, stderr = ssh_client.exec_command('screen -dm python /home/testtest/Sprint1/Sprint2/server.py -c 'sleep 30; exec sh')
+        stdin, stdout, stderr = ssh_client.exec_command("screen -dm python /home/testtest/Sprint1/Sprint2/server.py %s -c 'sleep 30; exec sh'" %(prefix))
         print("Server launched, receiving request...")
                                                         
-        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/rawrotator_rawrotator.py %s") | crontab -' %prefix)
+        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/rawrotator_updated.py %s") | crontab -' %prefix)
         print("Script excuted")
         
         ssh_client.close()
@@ -39,3 +39,6 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
         
 
     client = connect()
+
+#deploy('sprint.pem', 'ec2-34-218-35-29.us-west-2.compute.amazonaws.com', 'groupa')
+                                                

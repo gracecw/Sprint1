@@ -19,7 +19,7 @@ def get_raw_request():
     
     # check for lock file
     while True:
-        if not os.path.exists(dataDir + prefix + "flock"):
+        if not os.path.exists(dataDir + prefix + "/flock"):
             break
         print "Sorry, the server is busy now..."
         time.sleep(0.001)
