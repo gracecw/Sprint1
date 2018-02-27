@@ -29,6 +29,6 @@ def rotate(prefix):
     os.system('rm -f /srv/runme/%s/flock_proc')
     return "Proc Log rotated!"
 
-#If Raw.txt is not empty, rotate it; call process2.py to process it.
-if os.stat('/srv/runme/%s/Proc.txt' % (prefix)).st_size != 0:
+#If Proc.txt exists and is not empty, rotate it
+if (os.path.exists('/srv/runme/%s/Proc.txt' % (prefix))) and (os.stat('/srv/runme/%s/Proc.txt' % (prefix)).st_size != 0):
     rotate(prefix)
