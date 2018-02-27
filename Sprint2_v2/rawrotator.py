@@ -32,5 +32,5 @@ def rotate(prefix):
 #If Raw.txt is not empty, rotate it; call process2.py to process it.
 if os.stat('/srv/runme/%s/Raw.txt' % (prefix)).st_size != 0:
     rotate(prefix)
-    bashCommand = "python /home/testtest/Sprint1/Sprint2/process2.py %s %s" % (t, prefix)
+    bashCommand = "python /home/testtest/Sprint1/Sprint2_v2/process2.py %s %s" % (t, prefix)
     os.system(bashCommand)
