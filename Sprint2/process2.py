@@ -1,13 +1,20 @@
 import os, json, sys
+import time
 
 timestamp = sys.argv[1]
 prefix = sys.argv[2]
 dataDir = '/srv/runme/' + prefix + '/'
 
-proc_log_name = "procraw_%s.txt" % (timestamp)
 raw_log_name = "rawlog_%s.txt" % (timestamp)
 
-f = open(dataDir + proc_log_name, 'w')
+#Check if Proc.txt is locked
+while True:
+    if not os.path.exists(dataDir + 'flock_proc'):
+        break
+    print "The file is being rotated..."
+    time.sleep(0.001)
+
+f = open(dataDir + 'Proc.txt', 'a+')
 
 def dict_raise_on_duplicates(ordered_pairs):
     """Reject duplicate keys."""
@@ -19,7 +26,6 @@ def dict_raise_on_duplicates(ordered_pairs):
             d[k] = v
     return d
 
-
 json_strs = open(dataDir + raw_log_name).readlines()
 
 for json_str in json_strs:
@@ -28,7 +34,7 @@ for json_str in json_strs:
         name = json_dict['name']
         age = json_dict['prop']['age']
         if int(age) < 0 or len(name) == 0:
-                                            continue
+            continue
         str1 = str(name) + '\t' + str(age) + '\n'
         f.write(str1)
 
