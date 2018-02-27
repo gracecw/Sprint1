@@ -1,6 +1,7 @@
 import os
 from datetime import datetime
 import sys
+import time
 
 prefix = sys.argv[1]
 
@@ -30,5 +31,6 @@ def rotate(prefix):
     return "Proc Log rotated!"
 
 #If Proc.txt exists and is not empty, rotate it
+time.sleep(15)
 if (os.path.exists('/srv/runme/%s/Proc.txt' % (prefix))) and (os.stat('/srv/runme/%s/Proc.txt' % (prefix)).st_size != 0):
     rotate(prefix)
