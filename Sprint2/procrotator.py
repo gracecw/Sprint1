@@ -1,3 +1,5 @@
+#This function will rotate the Proc.txt file in the given 'prefix' folder, name the log file after the timestamp it is rotated.
+
 import os
 from datetime import datetime
 import sys

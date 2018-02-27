@@ -1,3 +1,5 @@
+## Lauch a server listening at port 8080, taking POST request and save raw request in Raw.txt.
+
 import sys
 from flask import Flask, request
 import os

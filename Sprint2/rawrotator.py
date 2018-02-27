@@ -1,3 +1,5 @@
+#This function will rotate the Raw.txt file in the given 'prefix' folder, name the log file after the timestamp it is rotated, then call process2.py to process the raw file.
+
 import os
 from datetime import datetime
 import sys
