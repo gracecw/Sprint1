@@ -5,7 +5,6 @@ timestamp = sys.argv[1]
 prefix = sys.argv[2]
 dataDir = '/srv/runme/' + prefix + '/'
 
-proc_log_name = "procraw_%s.txt" % (timestamp)
 raw_log_name = "rawlog_%s.txt" % (timestamp)
 
 f = open(dataDir + prefix + 'proc', 'a+')
