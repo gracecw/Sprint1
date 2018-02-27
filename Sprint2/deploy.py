@@ -1,3 +1,8 @@
+# Team Member: Shikhar Gupta, Ker-Yu Ong, Jing Song, Chen Wang, YiQiang Zhao
+# Note1: Raw.txt and Proc.txt are rotated every two mins as long as the files are not empty.
+# Note2: Raw log and Proc log are named after the timestamp they are processed.
+
+
 import paramiko
 import time
 
