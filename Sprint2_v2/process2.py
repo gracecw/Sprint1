@@ -34,7 +34,7 @@ for json_str in json_strs:
         name = json_dict['name']
         age = json_dict['prop']['age']
         if int(age) < 0 or len(name) == 0:
-                                            continue
+            continue
         str1 = str(name) + '\t' + str(age) + '\n'
         f.write(str1)
 
