@@ -41,10 +41,18 @@ def deploy(path_to_ssh_key_private_key, server_address, prefix):
         
         time.sleep(2)
         
+        #delete old cronjob if exist
+        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; grep -v "*/2 * * * * python /home/testtest/Sprint1/Sprint2/rawrotator.py %s") | crontab -' %prefix)
+        
+        #install new cronjob
         stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/rawrotator.py %s") | crontab -' %prefix)
         
         time.sleep(2)
         
+        #delete old cronjob if exist
+        stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; grep -v "*/2 * * * * python /home/testtest/Sprint1/Sprint2/procrotator.py %s") | crontab -' %prefix)
+        
+        #install new cronjob
         stdin, stdout, stderr = ssh_client.exec_command('(crontab -l; echo "*/2 * * * * python /home/testtest/Sprint1/Sprint2/procrotator.py %s") | crontab -' %prefix)
         print("Script excuted")
         
